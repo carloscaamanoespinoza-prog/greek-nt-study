@@ -1,0 +1,94 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  title: string;
+  description?: string;
+  currentLesson?: number;
+}
+
+const { title, description, currentLesson } = Astro.props;
+
+// Fetch all grammar lessons
+const allLessons = await getCollection('grammar');
+const sortedLessons = allLessons.sort(
+  (a, b) => (a.data.lesson - b.data.lesson)
+);
+
+// Group lessons by module
+const lessonsByModule = {
+  1: sortedLessons.filter(l => l.data.module === 1),
+  2: sortedLessons.filter(l => l.data.module === 2),
+  3: sortedLessons.filter(l => l.data.module === 3),
+  4: sortedLessons.filter(l => l.data.module === 4),
+};
+
+const moduleNames = {
+  1: 'Foundations',
+  2: 'Verb System',
+  3: 'Advanced Morphology',
+  4: 'Syntax',
+};
+---
+
+<BaseLayout {title} description={description}>
+  <div class="flex h-[calc(100vh-60px)]">
+    {/* Sidebar */}
+    <aside class="w-72 bg-slate-100 dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 overflow-y-auto">
+      <div class="p-4 sticky top-0 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+        <a href="/grammar" class="font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+          ← Grammar Modules
+        </a>
+      </div>
+
+      <nav class="p-4 space-y-6">
+        {Object.entries(moduleNames).map(([moduleNum, moduleName]) => {
+          const module = parseInt(moduleNum);
+          const lessons = lessonsByModule[module];
+
+          return (
+            <div key={module}>
+              <h3 class="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-3 px-3">
+                Module {module}: {moduleName}
+              </h3>
+              <ul class="space-y-1">
+                {lessons.map(lesson => (
+                  <li key={lesson.slug}>
+                    <a
+                      href={`/grammar/lessons/${lesson.slug}`}
+                      class={`block px-3 py-2 rounded transition-colors ${
+                        currentLesson === lesson.data.lesson
+                          ? 'bg-blue-600 text-white font-semibold'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      }`}
+                    >
+                      <span class="text-xs font-bold text-opacity-70">L{lesson.data.lesson}:</span>{' '}
+                      {lesson.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </nav>
+    </aside>
+
+    {/* Main content */}
+    <main class="flex-1 overflow-y-auto bg-white dark:bg-slate-950">
+      <div class="max-w-4xl mx-auto px-8 py-8">
+        <slot />
+      </div>
+    </main>
+  </div>
+
+  <style is:global>
+    /* Ensure layout fills viewport */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</BaseLayout>

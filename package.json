@@ -14,6 +14,7 @@
     "parse-strongs": "node scripts/03-parse-strongs.mjs",
     "parse-stepbible": "node scripts/04-parse-stepbible.mjs",
     "build-search-index": "node scripts/04-build-search-index.mjs",
+    "build-paradigms": "node scripts/08-build-paradigms.mjs",
     "build-concordance": "node scripts/05-build-concordance.mjs",
     "build-sqlite": "node scripts/06-build-sqlite.mjs",
     "split-chapters": "node scripts/07-split-by-chapter.mjs",

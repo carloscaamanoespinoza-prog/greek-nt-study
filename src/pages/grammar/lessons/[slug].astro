@@ -1,0 +1,189 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import GrammarLayout from '../../../layouts/GrammarLayout.astro';
+import DeclinationTable from '../../../components/grammar/DeclinationTable';
+import ConjugationTable from '../../../components/grammar/ConjugationTable';
+import MorphologyQuiz from '../../../components/grammar/MorphologyQuiz';
+
+export async function getStaticPaths() {
+  const lessons = await getCollection('grammar');
+  return lessons.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: any;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { data } = entry;
+
+// Get paradigm tables if referenced
+const paradigms: any[] = [];
+if (data.paradigms && data.paradigms.length > 0) {
+  for (const paradigmFile of data.paradigms) {
+    try {
+      const response = await fetch(`/data/paradigms/${paradigmFile}`);
+      if (response.ok) {
+        const paradigm = await response.json();
+        paradigms.push(paradigm);
+      }
+    } catch (e) {
+      console.warn(`Could not load paradigm: ${paradigmFile}`);
+    }
+  }
+}
+
+// Get adjacent lessons for navigation
+const allLessons = await getCollection('grammar');
+const sortedLessons = allLessons.sort(
+  (a, b) => (a.data.module * 1000 + a.data.lesson) - (b.data.module * 1000 + b.data.lesson)
+);
+const currentIndex = sortedLessons.findIndex(l => l.slug === entry.slug);
+const prevLesson = currentIndex > 0 ? sortedLessons[currentIndex - 1] : null;
+const nextLesson = currentIndex < sortedLessons.length - 1 ? sortedLessons[currentIndex + 1] : null;
+---
+
+<GrammarLayout
+  title={data.title}
+  description={data.description}
+  currentLesson={data.lesson}
+>
+  {/* Breadcrumb */}
+  <div class="mb-6 text-sm text-slate-600 dark:text-slate-400">
+    <a href="/grammar" class="hover:text-blue-600 dark:hover:text-blue-400">
+      Grammar Modules
+    </a>
+    {' > '}
+    <a href="/grammar" class="hover:text-blue-600 dark:hover:text-blue-400">
+      Module {data.module}
+    </a>
+    {' > '}
+    <span class="font-semibold text-slate-900 dark:text-white">
+      Lesson {data.lesson}: {data.title}
+    </span>
+  </div>
+
+  {/* Header */}
+  <div class="mb-8 pb-6 border-b border-slate-200 dark:border-slate-700">
+    <div class="flex items-start justify-between mb-4">
+      <div>
+        <div class="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
+          Module {data.module} • Lesson {data.lesson}
+        </div>
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+          {data.title}
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400">
+          {data.description}
+        </p>
+      </div>
+      <div class="flex-shrink-0">
+        <span class={`px-3 py-1 rounded-full text-xs font-bold ${
+          data.difficulty === 'beginner'
+            ? 'bg-green-100 dark:bg-green-900/30 text-green-900 dark:text-green-200'
+            : data.difficulty === 'intermediate'
+              ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-900 dark:text-amber-200'
+              : 'bg-red-100 dark:bg-red-900/30 text-red-900 dark:text-red-200'
+        }`}>
+          {data.difficulty.charAt(0).toUpperCase() + data.difficulty.slice(1)}
+        </span>
+      </div>
+    </div>
+
+    {/* Tags */}
+    {data.tags && data.tags.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {data.tags.map((tag: string) => (
+          <span key={tag} class="text-xs px-2 py-1 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+
+  {/* Main Content */}
+  <div class="prose dark:prose-invert max-w-none mb-8">
+    <Content />
+  </div>
+
+  {/* Paradigm Tables */}
+  {paradigms.length > 0 && (
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+        Paradigm Tables
+      </h2>
+      {paradigms.map((paradigm, idx) => {
+        // Determine if it's a declension or conjugation table
+        const isDeclension = paradigm.name.includes('Declension') || paradigm.name.includes('Article');
+        return isDeclension ? (
+          <DeclinationTable key={idx} paradigm={paradigm} client:load />
+        ) : (
+          <ConjugationTable key={idx} paradigm={paradigm} client:load />
+        );
+      })}
+    </div>
+  )}
+
+  {/* Quiz */}
+  {data.quiz && data.quiz.length > 0 && (
+    <div class="mb-12">
+      <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">
+        Test Your Knowledge
+      </h2>
+      <MorphologyQuiz questions={data.quiz} lessonTitle={data.title} client:load />
+    </div>
+  )}
+
+  {/* Navigation */}
+  <div class="flex items-center justify-between pt-8 border-t border-slate-200 dark:border-slate-700">
+    {prevLesson ? (
+      <a
+        href={`/grammar/lessons/${prevLesson.slug}`}
+        class="px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded transition-colors"
+      >
+        ← Lesson {prevLesson.data.lesson}: {prevLesson.data.title}
+      </a>
+    ) : (
+      <div></div>
+    )}
+
+    <a
+      href="/grammar"
+      class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+    >
+      All Lessons
+    </a>
+
+    {nextLesson ? (
+      <a
+        href={`/grammar/lessons/${nextLesson.slug}`}
+        class="px-4 py-2 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white rounded transition-colors"
+      >
+        Lesson {nextLesson.data.lesson}: {nextLesson.data.title} →
+      </a>
+    ) : (
+      <div></div>
+    )}
+  </div>
+</GrammarLayout>
+
+<style>
+  :global(.prose) {
+    --tw-prose-body: rgb(15 23 42);
+    --tw-prose-headings: rgb(15 23 42);
+    --tw-prose-links: rgb(37 99 235);
+    --tw-prose-code: rgb(15 23 42);
+  }
+
+  :global(.dark .prose) {
+    --tw-prose-body: rgb(203 213 225);
+    --tw-prose-headings: rgb(248 250 252);
+    --tw-prose-links: rgb(96 165 250);
+    --tw-prose-code: rgb(226 232 240);
+  }
+</style>
