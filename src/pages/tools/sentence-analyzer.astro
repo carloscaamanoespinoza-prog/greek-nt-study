@@ -1,42 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SentenceAnalyzer from '../../components/tools/SentenceAnalyzer';
 
 const pageTitle = 'Sentence Analyzer';
-const pageDescription = 'Color-coded grammatical analysis';
+const pageDescription = 'Color-coded grammatical analysis of Greek sentences';
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
-  <div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="max-w-6xl mx-auto px-4 py-8">
     <div class="mb-8">
       <div class="text-5xl mb-4">🎨</div>
       <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">
         Sentence Analyzer
       </h1>
       <p class="text-lg text-slate-600 dark:text-slate-400">
-        Color-coded grammatical analysis
+        Color-coded grammatical analysis of Greek sentences
       </p>
     </div>
 
-    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-lg p-8 text-center">
-      <div class="text-6xl mb-4">🏗️</div>
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-        Coming Soon
-      </h2>
-      <p class="text-slate-600 dark:text-slate-400 mb-4">
-        This tool is currently being built. Check back soon!
-      </p>
-      <p class="text-sm text-slate-600 dark:text-slate-400">
-        In the meantime, explore the <a href="/tools/progressive-reader" class="text-blue-600 dark:text-blue-400 hover:underline">Progressive Reader</a> 
-        or other <a href="/tools" class="text-blue-600 dark:text-blue-400 hover:underline">available tools</a>.
-      </p>
-    </div>
-
-    <div class="mt-12 p-6 bg-slate-100 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-      <h3 class="font-bold text-slate-900 dark:text-white mb-2">About This Tool</h3>
-      <p class="text-slate-700 dark:text-slate-300 text-sm">
-        Sentence Analyzer is designed to provide Color-coded grammatical analysis. 
-        It will offer advanced academic functionality for deeper study of the Greek New Testament.
-      </p>
-    </div>
+    <SentenceAnalyzer client:load />
   </div>
 </BaseLayout>
