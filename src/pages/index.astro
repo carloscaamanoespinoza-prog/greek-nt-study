@@ -2,200 +2,221 @@
 // Homepage
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import FeatureCard from '../components/ui/FeatureCard.astro';
+import Section from '../components/ui/Section.astro';
 ---
 
 <BaseLayout
   title="Greek NT Study - Κοινή Γραμματική"
   description="Interactive learning platform for Biblical Greek with complete morphological analysis"
 >
-  <div class="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-slate-900 dark:to-slate-950">
-    <!-- Hero Section -->
-    <div class="max-w-5xl mx-auto px-4 py-24 text-center">
-      <h1 class="font-greek text-6xl font-bold mb-4 text-blue-900 dark:text-blue-300">
-        Κοινή Γραμματική
-      </h1>
-      <p class="text-2xl text-slate-700 dark:text-slate-300 mb-2">
-        Greek New Testament Study Platform
-      </p>
-      <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
-        Learn Biblical Greek with morphological analysis, lexicon, and interactive lessons
-      </p>
-
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-        <a
-          href="/reader"
-          class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg transition-colors"
-        >
-          Start Reading →
-        </a>
-        <a
-          href="/grammar"
-          class="px-8 py-3 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 font-semibold text-lg transition-colors"
-        >
-          Learn Grammar
-        </a>
-      </div>
+  <!-- Hero Section -->
+  <div class="relative min-h-[600px] bg-gradient-to-br from-academic-600 via-blue-600 to-cyan-600 text-white overflow-hidden pt-20 pb-20">
+    <!-- Animated background pattern -->
+    <div class="absolute inset-0 opacity-20 mix-blend-overlay">
+      <div class="absolute top-0 -left-40 w-80 h-80 bg-white rounded-full mix-blend-multiply filter blur-3xl"></div>
+      <div class="absolute top-40 -right-40 w-80 h-80 bg-white rounded-full mix-blend-multiply filter blur-3xl"></div>
+      <div class="absolute -bottom-8 left-20 w-80 h-80 bg-white rounded-full mix-blend-multiply filter blur-3xl"></div>
     </div>
 
-    <!-- Features Section -->
-    <div class="bg-white dark:bg-slate-800">
-      <div class="max-w-5xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-          Features
-        </h2>
+    <!-- Content -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      <div class="text-center mb-12 animate-fade-in">
+        <h1 class="font-greek text-5xl sm:text-7xl font-bold mb-6 leading-tight">
+          Κοινή Γραμματική
+        </h1>
+        <p class="text-xl sm:text-2xl mb-4 text-blue-100 font-light">
+          Master Biblical Greek with Interactive Learning
+        </p>
+        <p class="text-lg sm:text-xl text-blue-100/90 max-w-2xl mx-auto mb-10">
+          Explore the complete Greek New Testament with morphological analysis, interactive lessons, and powerful learning tools
+        </p>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Feature 1 -->
-          <div class="text-center">
-            <div class="text-4xl mb-4">📖</div>
-            <h3 class="text-xl font-bold mb-2">Complete NT Text</h3>
-            <p class="text-slate-600 dark:text-slate-400">
-              All 27 books of the Greek New Testament with 138,000+ words
-            </p>
-          </div>
-
-          <!-- Feature 2 -->
-          <div class="text-center">
-            <div class="text-4xl mb-4">🔍</div>
-            <h3 class="text-xl font-bold mb-2">Morphological Analysis</h3>
-            <p class="text-slate-600 dark:text-slate-400">
-              Click any word to see case, gender, number, tense, voice, and mood
-            </p>
-          </div>
-
-          <!-- Feature 3 -->
-          <div class="text-center">
-            <div class="text-4xl mb-4">📚</div>
-            <h3 class="text-xl font-bold mb-2">Interactive Lexicon</h3>
-            <p class="text-slate-600 dark:text-slate-400">
-              Definitions, etymology, frequency, and complete concordance for each word
-            </p>
-          </div>
-
-          <!-- Feature 4 -->
-          <div class="text-center">
-            <div class="text-4xl mb-4">✍️</div>
-            <h3 class="text-xl font-bold mb-2">30 Grammar Lessons</h3>
-            <p class="text-slate-600 dark:text-slate-400">
-              From alphabet to advanced syntax with interactive tables and exercises
-            </p>
-          </div>
-
-          <!-- Feature 5 -->
-          <div class="text-center">
-            <div class="text-4xl mb-4">🧠</div>
-            <h3 class="text-xl font-bold mb-2">Learning Tools</h3>
-            <p class="text-slate-600 dark:text-slate-400">
-              Progressive reader, verbal aspect diagrams, vocabulary maps, and more
-            </p>
-          </div>
-
-          <!-- Feature 6 -->
-          <div class="text-center">
-            <div class="text-4xl mb-4">⚡</div>
-            <h3 class="text-xl font-bold mb-2">Offline Ready</h3>
-            <p class="text-slate-600 dark:text-slate-400">
-              Progressive Web App for desktop and mobile with offline support
-            </p>
-          </div>
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/reader" variant="primary" size="lg">
+            📖 Start Reading Greek
+          </Button>
+          <Button href="/grammar" variant="secondary" size="lg">
+            📚 Learn Grammar
+          </Button>
         </div>
       </div>
-    </div>
-
-    <!-- Academic Section -->
-    <div class="max-w-5xl mx-auto px-4 py-16">
-      <h2 class="text-3xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-        Academic Foundation
-      </h2>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg">
-          <h3 class="font-bold text-lg mb-3">Based on Scholarly Works</h3>
-          <ul class="text-sm space-y-2 text-slate-700 dark:text-slate-300">
-            <li>• A.T. Robertson: Grammar of the Greek NT</li>
-            <li>• Blass-Debrunner-Funk: Greek Grammar</li>
-            <li>• Dana-Mantey: Manual Grammar</li>
-            <li>• Zerwick: Biblical Greek</li>
-            <li>• Stanley Porter: Verbal Aspect Theory</li>
-          </ul>
-        </div>
-
-        <div class="bg-slate-50 dark:bg-slate-800 p-6 rounded-lg">
-          <h3 class="font-bold text-lg mb-3">Data Sources (All Free)</h3>
-          <ul class="text-sm space-y-2 text-slate-700 dark:text-slate-300">
-            <li>• OpenGNT: Greek NT with morphology</li>
-            <li>• Strong's Dictionary: Definitions</li>
-            <li>• LSJ: Classical Greek lexicon</li>
-            <li>• Abbott-Smith: NT lexicon</li>
-            <li>• MorphGNT: Morphological analysis</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Start Section -->
-    <div class="bg-blue-50 dark:bg-blue-900/20">
-      <div class="max-w-5xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-center mb-8 text-slate-900 dark:text-white">
-          Quick Start
-        </h2>
-
-        <div class="bg-white dark:bg-slate-800 rounded-lg p-8 space-y-4">
-          <div class="flex gap-4">
-            <div class="text-2xl font-bold text-blue-600 flex-shrink-0">1</div>
-            <div>
-              <h3 class="font-bold mb-1">Select a Book</h3>
-              <p class="text-slate-600 dark:text-slate-400">
-                Start with a Gospel (Matthew, Mark, Luke, John) or browse other books
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-4">
-            <div class="text-2xl font-bold text-blue-600 flex-shrink-0">2</div>
-            <div>
-              <h3 class="font-bold mb-1">Click Words</h3>
-              <p class="text-slate-600 dark:text-slate-400">
-                Click any Greek word to see morphology, definition, and usage
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-4">
-            <div class="text-2xl font-bold text-blue-600 flex-shrink-0">3</div>
-            <div>
-              <h3 class="font-bold mb-1">Learn Grammar</h3>
-              <p class="text-slate-600 dark:text-slate-400">
-                Study 30 lessons covering alphabet, morphology, syntax, and interpretation
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-4">
-            <div class="text-2xl font-bold text-blue-600 flex-shrink-0">4</div>
-            <div>
-              <h3 class="font-bold mb-1">Master Greek</h3>
-              <p class="text-slate-600 dark:text-slate-400">
-                Practice with exercises, use advanced tools, and develop deep comprehension
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer CTA -->
-    <div class="max-w-5xl mx-auto px-4 py-16 text-center">
-      <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
-        Ready to learn?
-      </h2>
-      <a
-        href="/reader"
-        class="inline-block px-10 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold text-lg transition-colors"
-      >
-        Begin Reading Greek Now →
-      </a>
     </div>
   </div>
+
+  <!-- Features Section -->
+  <Section title="Powerful Features" subtitle="Everything you need to master Biblical Greek">
+    <div class="grid md:grid-cols-3 gap-6">
+      <FeatureCard
+        icon="📖"
+        title="Complete NT Text"
+        description="All 27 books of the Greek New Testament with 138,000+ words at your fingertips"
+        badge="Core Feature"
+      />
+      <FeatureCard
+        icon="🔍"
+        title="Morphological Analysis"
+        description="Click any word to instantly see case, gender, number, tense, voice, and mood"
+        badge="Interactive"
+      />
+      <FeatureCard
+        icon="📚"
+        title="Interactive Lexicon"
+        description="Definitions, etymology, frequency, and complete concordance for every word"
+        badge="Reference"
+      />
+      <FeatureCard
+        icon="✍️"
+        title="30 Grammar Lessons"
+        description="From alphabet to advanced syntax with interactive tables and hands-on exercises"
+        badge="Learning"
+      />
+      <FeatureCard
+        icon="🧠"
+        title="Smart Learning Tools"
+        description="Progressive reader, verbal aspect diagrams, vocabulary maps, and sentence analysis"
+        badge="Tools"
+      />
+      <FeatureCard
+        icon="⚡"
+        title="Works Offline"
+        description="Progressive Web App for desktop and mobile with full offline support"
+        badge="PWA"
+      />
+    </div>
+  </Section>
+
+  <!-- Academic Foundation Section -->
+  <Section title="Built on Scholarly Excellence" subtitle="Grounded in academic rigor" variant="accent">
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all">
+        <h3 class="text-xl font-bold mb-6 text-slate-900 dark:text-white">Scholarly Foundation</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>A.T. Robertson:</strong> Grammar of the Greek NT</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>Blass-Debrunner-Funk:</strong> Greek Grammar</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>Dana-Mantey:</strong> Manual Grammar</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>Zerwick:</strong> Biblical Greek</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>Stanley Porter:</strong> Verbal Aspect Theory</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all">
+        <h3 class="text-xl font-bold mb-6 text-slate-900 dark:text-white">Free Data Sources</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>OpenGNT:</strong> Greek NT with morphology</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>Strong's Dictionary:</strong> Word definitions</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>LSJ:</strong> Classical Greek lexicon</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>Abbott-Smith:</strong> NT lexicon</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-academic-600 font-bold mt-1">→</span>
+            <span class="text-slate-700 dark:text-slate-300"><strong>MorphGNT:</strong> Morphological analysis</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Quick Start Section -->
+  <Section title="Get Started in 4 Steps" subtitle="Begin your Greek learning journey today">
+    <div class="max-w-3xl mx-auto">
+      <div class="space-y-6">
+        <div class="flex gap-6 group">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-br from-academic-600 to-blue-600 text-white font-bold text-lg">
+              1
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Choose Your Text</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Start with one of the four Gospels (Matthew, Mark, Luke, or John) or explore any of the 27 books
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6 group">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-br from-academic-600 to-blue-600 text-white font-bold text-lg">
+              2
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Interact with Words</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Click on any Greek word to see its morphology, definition, etymology, and usage throughout the text
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6 group">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-br from-academic-600 to-blue-600 text-white font-bold text-lg">
+              3
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Study Grammar</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Work through 30 comprehensive lessons covering grammar fundamentals, morphology, syntax, and interpretation
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6 group">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-gradient-to-br from-academic-600 to-blue-600 text-white font-bold text-lg">
+              4
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">Master Greek</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Use advanced tools for sentence analysis, verbal aspect study, and deep comprehension of the text
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Final CTA Section -->
+  <Section title="Ready to Begin?" subtitle="Start learning Biblical Greek today" variant="gradient">
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button href="/reader" variant="primary" size="lg" class="!bg-white !text-academic-600 hover:!bg-blue-50">
+        📖 Open the Reader
+      </Button>
+      <Button href="/grammar" variant="outline" size="lg" class="!border-white !text-white hover:!bg-white/10">
+        📚 Explore Grammar
+      </Button>
+    </div>
+  </Section>
 </BaseLayout>
