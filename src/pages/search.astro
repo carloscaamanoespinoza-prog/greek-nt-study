@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchPage from '../components/search/SearchPage';
+
+const pageTitle = 'Search Greek New Testament';
+const pageDescription = 'Search the Greek NT by word, transliteration, Strong\'s number, or definition';
+
+// Load search index at build time
+import searchIndex from '../../public/data/search-index.json';
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <SearchPage client:load searchIndex={searchIndex} />
+</BaseLayout>

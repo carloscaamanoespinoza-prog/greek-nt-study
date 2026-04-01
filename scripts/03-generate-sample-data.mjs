@@ -314,7 +314,7 @@ const strongsIndex = {
     strongs: 25,
     greek: 'ἀγαπάω',
     translit: 'agapaō',
-    pronunciation: 'ag-ap-ah'-o',
+    pronunciation: 'ag-ap-ah\'-o',
     gloss: 'to love',
     definition:
       'To love, to be fond of, to love dearly. Used of the highest kind of love, divine love. This is the supreme Greek word for love, expressing the most noble form of affection.',
@@ -332,7 +332,7 @@ const strongsIndex = {
     strongs: 2316,
     greek: 'θεός',
     translit: 'theos',
-    pronunciation: 'theh'-os',
+    pronunciation: 'theh\'-os',
     gloss: 'God',
     definition:
       'God. The divine being, the supreme ruler and creator of all things. In the NT, this refers specifically to the God of Israel and the Father of Jesus Christ.',
@@ -349,7 +349,7 @@ const strongsIndex = {
     strongs: 4100,
     greek: 'πιστεύω',
     translit: 'pisteuō',
-    pronunciation: 'pis-tyoo'-o',
+    pronunciation: 'pis-tyoo\'-o',
     gloss: 'to believe, trust',
     definition:
       'To believe, to trust, to have confidence in. Often followed by εἰς (into) with accusative. In the NT, it frequently means to trust in Christ for salvation.',
