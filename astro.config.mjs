@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind';
 import netlify from '@astrojs/netlify';
 
 export default defineConfig({
+  site: process.env.SITE_URL || 'http://localhost:3000',
   output: 'static',
   integrations: [
     preact({ compat: false }),

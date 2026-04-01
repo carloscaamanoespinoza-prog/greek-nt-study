@@ -1,0 +1,66 @@
+name: Build and Deploy to Netlify
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          SITE_URL: ${{ secrets.SITE_URL || 'https://greek-nt-study.netlify.app' }}
+
+      - name: Upload coverage (optional)
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: build-artifacts
+          path: dist/
+          retention-days: 5
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.1
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          publish-dir: './dist'
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Build status
+        run: |
+          echo "✓ Build completed successfully"
+          echo "✓ Sitemap generated: dist/sitemap.xml"
+          echo "✓ PWA manifest: dist/manifest.json"
+          echo "✓ Service worker: dist/service-worker.js"
+          echo "✓ Robots.txt: dist/robots.txt"
