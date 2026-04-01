@@ -1,0 +1,147 @@
+---
+// Dynamic page for reading Greek NT by chapter
+// Path: /reader/[book]/[chapter]
+
+import ReaderLayout from '../../../layouts/ReaderLayout.astro';
+import GreekText from '../../../components/reader/GreekText';
+import { NT_BOOKS } from '../../../../scripts/utils/book-info.mjs';
+import fs from 'fs';
+import path from 'path';
+
+interface Props {
+  book: string;
+  chapter: string;
+}
+
+const { book, chapter } = Astro.params as Props;
+
+// Validate book and chapter
+const bookInfo = NT_BOOKS.find((b) => b.id === book);
+if (!bookInfo) {
+  return Astro.redirect('/reader/matthew/1');
+}
+
+const chapterNum = parseInt(chapter);
+if (isNaN(chapterNum) || chapterNum < 1 || chapterNum > bookInfo.chapters) {
+  return Astro.redirect(`/reader/${book}/1`);
+}
+
+// Load chapter data
+let chapterData = null;
+const dataPath = path.join(process.cwd(), 'public', 'data', 'text', book, `${chapterNum}.json`);
+
+if (fs.existsSync(dataPath)) {
+  const fileContent = fs.readFileSync(dataPath, 'utf-8');
+  chapterData = JSON.parse(fileContent);
+}
+
+// Generate static paths for all book/chapter combinations
+export async function getStaticPaths() {
+  const paths: { params: { book: string; chapter: string } }[] = [];
+
+  for (const b of NT_BOOKS) {
+    for (let ch = 1; ch <= b.chapters; ch++) {
+      paths.push({
+        params: {
+          book: b.id,
+          chapter: ch.toString(),
+        },
+      });
+    }
+  }
+
+  return paths;
+}
+
+// If no data found, show placeholder
+if (!chapterData) {
+  chapterData = {
+    book: book,
+    chapter: chapterNum,
+    verses: [
+      {
+        verse: 1,
+        words: [
+          {
+            id: '0',
+            text: 'Δεδοίκαμεν',
+            punct: '',
+            lemma: 'δείδω',
+            strongs: 1169,
+            rmac: 'V-RAI-1P',
+            morph: {
+              pos: 'verb',
+              tense: 'perfect',
+              voice: 'active',
+              mood: 'indicative',
+              person: 'first',
+              number: 'plural',
+            },
+            gloss: 'we have feared',
+            freq: 1,
+          },
+          {
+            id: '1',
+            text: 'ἀναμένειν',
+            punct: '.',
+            lemma: 'ἀναμένω',
+            strongs: 362,
+            rmac: 'V-PAN',
+            morph: {
+              pos: 'verb',
+              tense: 'present',
+              voice: 'active',
+              mood: 'infinitive',
+            },
+            gloss: 'to wait for',
+            freq: 2,
+          },
+        ],
+      },
+    ],
+  };
+}
+
+const title = `${bookInfo.name} ${chapterNum}`;
+---
+
+<ReaderLayout {title} book={book} chapter={chapterNum}>
+  <GreekText client:load data={chapterData} />
+
+  <!-- Chapter Navigation -->
+  <div class="flex justify-between items-center mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+    {chapterNum > 1 ? (
+      <a
+        href={`/reader/${book}/${chapterNum - 1}`}
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        ← Previous Chapter
+      </a>
+    ) : (
+      <div></div>
+    )}
+
+    <span class="text-slate-600 dark:text-slate-400">
+      {bookInfo.name} {chapterNum} of {bookInfo.chapters}
+    </span>
+
+    {chapterNum < bookInfo.chapters ? (
+      <a
+        href={`/reader/${book}/${chapterNum + 1}`}
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        Next Chapter →
+      </a>
+    ) : (
+      <div></div>
+    )}
+  </div>
+
+  <!-- Reading Stats -->
+  <div class="mt-8 text-sm text-slate-600 dark:text-slate-400">
+    <p>
+      Verses: {chapterData.verses.length} |
+      Words: {chapterData.verses.reduce((sum: number, v: any) => sum + v.words.length, 0)}
+    </p>
+  </div>
+</ReaderLayout>

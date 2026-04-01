@@ -1,0 +1,151 @@
+---
+// Reader landing page - select a book
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { NT_BOOKS, getBooksByCategory } from '../../../scripts/utils/book-info.mjs';
+
+const gospels = getBooksByCategory('gospel');
+const acts = NT_BOOKS.filter((b) => b.category === 'history');
+const paulineEpistles = NT_BOOKS.filter(
+  (b) => b.category === 'epistle' && b.author === 'Paul'
+);
+const hebrews = NT_BOOKS.filter((b) => b.id === 'hebrews');
+const jamesEtAl = NT_BOOKS.filter(
+  (b) => b.category === 'epistle' && b.author !== 'Paul' && b.id !== 'hebrews'
+);
+const revelation = NT_BOOKS.filter((b) => b.category === 'apocalypse');
+---
+
+<BaseLayout
+  title="Greek NT Reader"
+  description="Read the complete Greek New Testament with morphological analysis"
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-4">Greek New Testament Reader</h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
+      Select a book to begin reading the original Greek text
+    </p>
+
+    <!-- Gospels -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-blue-900 dark:text-blue-300">
+        The Gospels
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {gospels.map((book) => (
+          <a
+            href={`/reader/${book.id}/1`}
+            class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-lg hover:shadow-lg transition-shadow border border-blue-200 dark:border-blue-700"
+          >
+            <h3 class="font-bold text-lg mb-1">{book.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {book.chapters} chapters
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Acts -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-green-900 dark:text-green-300">
+        History
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {acts.map((book) => (
+          <a
+            href={`/reader/${book.id}/1`}
+            class="p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-lg hover:shadow-lg transition-shadow border border-green-200 dark:border-green-700"
+          >
+            <h3 class="font-bold text-lg mb-1">{book.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {book.chapters} chapters
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Pauline Epistles -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-purple-900 dark:text-purple-300">
+        Paul's Letters
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {paulineEpistles.map((book) => (
+          <a
+            href={`/reader/${book.id}/1`}
+            class="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-lg hover:shadow-lg transition-shadow border border-purple-200 dark:border-purple-700"
+          >
+            <h3 class="font-bold text-lg mb-1">{book.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {book.chapters} chapters
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Hebrews & James et al -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-amber-900 dark:text-amber-300">
+        Other Letters
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {hebrews.map((book) => (
+          <a
+            href={`/reader/${book.id}/1`}
+            class="p-4 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 rounded-lg hover:shadow-lg transition-shadow border border-amber-200 dark:border-amber-700"
+          >
+            <h3 class="font-bold text-lg mb-1">{book.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {book.chapters} chapters
+            </p>
+          </a>
+        ))}
+        {jamesEtAl.map((book) => (
+          <a
+            href={`/reader/${book.id}/1`}
+            class="p-4 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 rounded-lg hover:shadow-lg transition-shadow border border-amber-200 dark:border-amber-700"
+          >
+            <h3 class="font-bold text-lg mb-1">{book.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {book.chapters} chapters
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Revelation -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-4 text-red-900 dark:text-red-300">
+        Revelation
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {revelation.map((book) => (
+          <a
+            href={`/reader/${book.id}/1`}
+            class="p-4 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 rounded-lg hover:shadow-lg transition-shadow border border-red-200 dark:border-red-700"
+          >
+            <h3 class="font-bold text-lg mb-1">{book.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+              {book.chapters} chapters
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Info Box -->
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6 mt-12">
+      <h3 class="font-bold mb-2">How to use the Reader</h3>
+      <ul class="text-sm space-y-1 text-slate-700 dark:text-slate-300">
+        <li>✓ Click any Greek word to see its morphology and definition</li>
+        <li>✓ Use the sidebar to navigate between chapters</li>
+        <li>✓ Next/Previous buttons jump to adjacent chapters</li>
+        <li>✓ Hover over words to see their English gloss</li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

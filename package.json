@@ -4,10 +4,11 @@
   "description": "Application for studying the Greek New Testament with morphological analysis",
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "npm run sample-data && astro dev",
     "build": "npm run process-data && astro build",
     "preview": "astro preview",
     "process-data": "node scripts/00-init-data.mjs",
+    "sample-data": "node scripts/03-generate-sample-data.mjs",
     "download-sources": "bash scripts/01-download-sources.sh",
     "parse-opengnt": "node scripts/02-parse-opengnt.mjs",
     "parse-strongs": "node scripts/03-parse-strongs.mjs",
