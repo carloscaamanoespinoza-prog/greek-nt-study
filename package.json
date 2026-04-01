@@ -1,0 +1,39 @@
+{
+  "name": "greek-nt-study",
+  "version": "0.1.0",
+  "description": "Application for studying the Greek New Testament with morphological analysis",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "npm run process-data && astro build",
+    "preview": "astro preview",
+    "process-data": "node scripts/00-init-data.mjs",
+    "download-sources": "bash scripts/01-download-sources.sh",
+    "parse-opengnt": "node scripts/02-parse-opengnt.mjs",
+    "parse-strongs": "node scripts/03-parse-strongs.mjs",
+    "parse-stepbible": "node scripts/04-parse-stepbible.mjs",
+    "build-concordance": "node scripts/05-build-concordance.mjs",
+    "build-sqlite": "node scripts/06-build-sqlite.mjs",
+    "split-chapters": "node scripts/07-split-by-chapter.mjs",
+    "build-paradigms": "node scripts/08-build-paradigms.mjs"
+  },
+  "dependencies": {
+    "astro": "^4.15.0",
+    "@astrojs/preact": "^3.5.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/netlify": "^5.5.0",
+    "preact": "^10.22.0",
+    "preact-signals": "^1.3.0",
+    "tailwindcss": "^4.0.0",
+    "fuse.js": "^7.0.0",
+    "sql.js": "^1.12.0",
+    "cuid": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.11.0",
+    "papaparse": "^5.4.1",
+    "xml2js": "^0.6.2",
+    "sharp": "^0.33.0"
+  }
+}

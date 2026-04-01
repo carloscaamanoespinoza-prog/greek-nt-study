@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+dist/
+.astro/
+.vercel/
+
+# Data sources (large files)
+data-sources/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Build artifacts
+*.sqlite
+public/data/text/
+public/data/lexicon/lsj/
+public/data/concordance/
+public/data/paradigms/
+public/data/grammar/
