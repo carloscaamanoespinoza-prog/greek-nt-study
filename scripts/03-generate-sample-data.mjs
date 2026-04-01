@@ -317,14 +317,14 @@ const strongsIndex = {
     pronunciation: 'ag-ap-ah'-o',
     gloss: 'to love',
     definition:
-      'To love, to be fond of, to love dearly. Used of the highest kind of love, divine love.',
-    kjvTranslations: ['love', 'beloved'],
+      'To love, to be fond of, to love dearly. Used of the highest kind of love, divine love. This is the supreme Greek word for love, expressing the most noble form of affection.',
+    kjvTranslations: ['love', 'beloved', 'loves'],
     etymology: {
-      roots: [],
+      roots: [{ strongs: 26, greek: 'ἀγάπη', relationship: 'root' }],
       cognates: [26, 27],
-      derivedWords: [26],
+      derivedWords: [26, 27, 28],
       historicalNote:
-        'Common in Koine Greek for divine and Christian love (agape). Appears 143 times in the NT.',
+        'Common in Koine Greek for divine and Christian love (agape). Appears 143 times in the NT. Central to Christian ethics and theology.',
     },
     frequency: 143,
   },
@@ -334,13 +334,14 @@ const strongsIndex = {
     translit: 'theos',
     pronunciation: 'theh'-os',
     gloss: 'God',
-    definition: 'God. The divine being, the supreme ruler and creator.',
-    kjvTranslations: ['God', 'god'],
+    definition:
+      'God. The divine being, the supreme ruler and creator of all things. In the NT, this refers specifically to the God of Israel and the Father of Jesus Christ.',
+    kjvTranslations: ['God', 'god', 'God\'s'],
     etymology: {
       roots: [],
-      cognates: [],
-      derivedWords: [2317, 2318],
-      historicalNote: 'The Greek word for the divine being. Central to NT theology.',
+      cognates: [{ strongs: 2307, greek: 'θέλημα', relationship: 'cognate' }],
+      derivedWords: [2317, 2318, 2319],
+      historicalNote: 'The most important theological term in the NT. Appears 1,320 times.',
     },
     frequency: 1320,
   },
@@ -351,14 +352,14 @@ const strongsIndex = {
     pronunciation: 'pis-tyoo'-o',
     gloss: 'to believe, trust',
     definition:
-      'To believe, to trust, to have confidence in. Often followed by εἰς (into) with accusative.',
-    kjvTranslations: ['believe', 'trust', 'commit'],
+      'To believe, to trust, to have confidence in. Often followed by εἰς (into) with accusative. In the NT, it frequently means to trust in Christ for salvation.',
+    kjvTranslations: ['believe', 'trust', 'commit', 'have faith'],
     etymology: {
-      roots: [4102],
+      roots: [{ strongs: 4102, greek: 'πίστις', relationship: 'root' }],
       cognates: [],
-      derivedWords: [4101, 4103],
+      derivedWords: [4101, 4103, 4104],
       historicalNote:
-        'Key concept in NT soteriology. Represents faith and trust in God/Christ.',
+        'Key concept in NT soteriology. Represents faith and trust in God/Christ. The noun πίστις appears 243 times.',
     },
     frequency: 248,
   },
@@ -376,9 +377,42 @@ const concordanceDir = path.join(DATA_DIR, 'concordance');
 fs.mkdirSync(concordanceDir, { recursive: true });
 
 const concordanceIndex = {
-  'ἀγαπάω': ['John 3:16', 'John 3:19', 'John 5:20'],
-  θεός: ['John 1:1', 'John 1:2', 'John 3:16'],
-  πιστεύω: ['John 1:12', 'John 3:15', 'John 3:16'],
+  'ἀγαπάω': [
+    'John 3:16',
+    'John 3:19',
+    'John 5:20',
+    'John 8:42',
+    'John 11:5',
+    'John 13:1',
+    'John 13:34',
+    'John 14:15',
+    'Romans 9:25',
+    '1 John 4:7',
+  ],
+  θεός: [
+    'John 1:1',
+    'John 1:2',
+    'John 3:2',
+    'John 3:16',
+    'John 3:17',
+    'John 4:24',
+    'John 5:18',
+    'John 6:33',
+    'Romans 1:7',
+    '1 Corinthians 1:9',
+  ],
+  πιστεύω: [
+    'John 1:12',
+    'John 3:15',
+    'John 3:16',
+    'John 5:24',
+    'John 6:47',
+    'John 8:30',
+    'John 11:25',
+    'John 14:12',
+    'Mark 1:15',
+    'Romans 10:9',
+  ],
 };
 
 const concordancePath = path.join(concordanceDir, 'index.json');
