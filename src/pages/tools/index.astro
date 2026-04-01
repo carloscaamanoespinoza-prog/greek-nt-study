@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Advanced Tools';
+const pageDescription = 'Specialized tools for deeper Greek NT study and analysis';
+
+const tools = [
+  {
+    slug: 'progressive-reader',
+    icon: '👓',
+    title: 'Progressive Reader',
+    description: 'Read with progressive help - hide glosses for frequent words, reveal on hover',
+    features: ['Frequency-based filtering', 'Configurable thresholds', 'Real-time toggle'],
+  },
+  {
+    slug: 'verbal-aspect',
+    icon: '⚡',
+    title: 'Verbal Aspect Chart',
+    description: 'Classify Greek verbs by Porter\'s aspect theory',
+    features: ['50+ curated NT verbs', 'Filter by aspect', 'Search functionality'],
+  },
+  {
+    slug: 'frequency-map',
+    icon: '🔥',
+    title: 'Vocabulary Frequency Map',
+    description: 'Visualize the most common Greek NT words by frequency',
+    features: ['Top 100 words', 'Color-coded by frequency', 'Part-of-speech filtering'],
+  },
+  {
+    slug: 'sentence-analyzer',
+    icon: '🎨',
+    title: 'Sentence Analyzer',
+    description: 'Color-coded grammatical analysis of Greek sentences',
+    features: ['Morphology-based coloring', 'Interactive word details', 'Legend reference'],
+  },
+  {
+    slug: 'lxx-comparison',
+    icon: '📜',
+    title: 'LXX Comparison',
+    description: 'Parallel comparison of NT passages with their LXX citations',
+    features: ['3 passage pairs', 'Parallel layout', 'Vocabulary matching'],
+  },
+  {
+    slug: 'textual-notes',
+    icon: '📝',
+    title: 'Textual Notes',
+    description: 'Simplified apparatus with key textual variants in the NT',
+    features: ['5 key passages', 'Byzantine vs Alexandrian', 'Manuscript support'],
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    {/* Header */}
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold text-slate-900 dark:text-white mb-4">
+        Advanced Tools
+      </h1>
+      <p class="text-xl text-slate-600 dark:text-slate-400 mb-6">
+        Specialized academic tools for deeper exploration and analysis
+      </p>
+      <div class="flex items-center justify-center gap-6 text-slate-700 dark:text-slate-300">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">{tools.length}</div>
+          <div class="text-sm font-semibold">Tools</div>
+        </div>
+      </div>
+    </div>
+
+    {/* Tools Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {tools.map((tool) => (
+        <a
+          href={`/tools/${tool.slug}`}
+          class="group p-6 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-600 hover:shadow-lg transition-all"
+        >
+          <div class="flex items-start justify-between mb-4">
+            <div class="text-4xl">{tool.icon}</div>
+            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+              →
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+            {tool.title}
+          </h3>
+
+          <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+            {tool.description}
+          </p>
+
+          <ul class="text-xs space-y-1 text-slate-600 dark:text-slate-400">
+            {tool.features.map((feature) => (
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </a>
+      ))}
+    </div>
+
+    {/* Quick Start */}
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+        Getting Started
+      </h2>
+      <p class="text-slate-700 dark:text-slate-300 mb-6">
+        These tools are designed for advanced study of the Greek New Testament. Each tool provides different perspectives on the text and data:
+      </p>
+      <ul class="space-y-3 text-slate-700 dark:text-slate-300">
+        <li class="flex gap-3">
+          <span class="font-bold text-blue-600 dark:text-blue-400">👓</span>
+          <span><strong>Progressive Reader</strong> helps you focus on challenging vocabulary while building fluency with common words</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-bold text-blue-600 dark:text-blue-400">⚡</span>
+          <span><strong>Verbal Aspect Chart</strong> clarifies how Greek expresses tense and aspect from a linguistic perspective</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-bold text-blue-600 dark:text-blue-400">🔥</span>
+          <span><strong>Frequency Map</strong> shows which words are worth memorizing for reading fluency</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-bold text-blue-600 dark:text-blue-400">🎨</span>
+          <span><strong>Sentence Analyzer</strong> breaks down grammatical structure using morphological information</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-bold text-blue-600 dark:text-blue-400">📜</span>
+          <span><strong>LXX Comparison</strong> explores the relationship between the NT and its OT source texts</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-bold text-blue-600 dark:text-blue-400">📝</span>
+          <span><strong>Textual Notes</strong> introduces the field of textual criticism with real manuscript variants</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

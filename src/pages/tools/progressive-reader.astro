@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProgressiveReader from '../../components/tools/ProgressiveReader';
+import type { ChapterData } from '../../components/reader/GreekText';
+
+let chapterData: ChapterData | null = null;
+
+try {
+  const response = await fetch(new URL('../../public/data/text/john/3.json', import.meta.url));
+  const data = await response.json();
+  chapterData = data;
+} catch (e) {
+  console.warn('Could not load chapter data');
+}
+---
+
+<BaseLayout
+  title="Progressive Reader"
+  description="Read Greek text with progressive help - hide glosses for common words, reveal on hover"
+>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    {/* Header */}
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+        Progressive Reader
+      </h1>
+      <p class="text-lg text-slate-600 dark:text-slate-400">
+        Read with adaptive help. Words appearing below your selected frequency threshold are hidden by default, shown on hover.
+      </p>
+    </div>
+
+    {/* Instructions */}
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+      <h3 class="font-bold text-slate-900 dark:text-white mb-2">How it Works</h3>
+      <ul class="text-sm text-slate-700 dark:text-slate-300 space-y-1">
+        <li>✓ Adjust the threshold slider to choose your help level</li>
+        <li>✓ Words appearing ≤ your threshold will show their gloss on hover</li>
+        <li>✓ Common words (above threshold) are shown without glosses</li>
+        <li>✓ Color shows frequency: blue=very rare, red=very common</li>
+        <li>✓ Toggle "Show all glosses" to override settings</li>
+      </ul>
+    </div>
+
+    {/* Reader Component */}
+    {chapterData ? (
+      <ProgressiveReader client:load data={chapterData} />
+    ) : (
+      <div class="p-8 text-center bg-slate-100 dark:bg-slate-900 rounded-lg">
+        <p class="text-slate-600 dark:text-slate-400">
+          Loading Greek text... Currently displaying John 3:14-17 sample data
+        </p>
+      </div>
+    )}
+
+    {/* Notes */}
+    <div class="mt-12 p-6 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+      <h3 class="font-bold text-slate-900 dark:text-white mb-2">Tips for Effective Learning</h3>
+      <ul class="text-sm text-slate-700 dark:text-slate-300 space-y-2">
+        <li>🎯 <strong>Start high:</strong> Begin with a high threshold (500+) to focus on vocabulary building</li>
+        <li>📈 <strong>Reduce gradually:</strong> As you progress, lower the threshold to challenge yourself</li>
+        <li>🔄 <strong>Alternate:</strong> Switch between Progressive and normal Reader mode for variety</li>
+        <li>💾 <strong>Frequency matters:</strong> Words marked "very common" (>500x) are worth knowing well</li>
+      </ul>
+    </div>
+  </div>
+</BaseLayout>
